@@ -104,8 +104,7 @@ namespace PP_12._2020.ViewsModels
         public RelayCommand ShowPas => _showPas ?? (_showPas = new RelayCommand(
             p =>
             {
-                Methods.excel(new ObservableCollection<Login_log> (db.Login_log));
-                Methods.prf(new ObservableCollection<Login_log>(db.Login_log));
+
             }
             ));
         
