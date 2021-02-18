@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3abe8e94dc8c4a8abade7c6922708013" Name="Diagram1">
+        <EntityTypeShape EntityType="CollegeModel.Academic_plans" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="CollegeModel.Estimation" Width="1.5" PointX="9.75" PointY="8.125" />
+        <EntityTypeShape EntityType="CollegeModel.Group" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="CollegeModel.Login_log" Width="1.5" PointX="7.5" PointY="2.875" />
+        <EntityTypeShape EntityType="CollegeModel.Logins_and_passwords" Width="1.5" PointX="7.5" PointY="8.75" />
+        <EntityTypeShape EntityType="CollegeModel.Plan_information" Width="1.5" PointX="9.75" PointY="11.625" />
+        <EntityTypeShape EntityType="CollegeModel.Subject" Width="1.5" PointX="7.5" PointY="11.5" />
+        <EntityTypeShape EntityType="CollegeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CollegeModel.User_types" Width="1.5" PointX="3" PointY="3" />
+        <EntityTypeShape EntityType="CollegeModel.User" Width="1.5" PointX="5.25" PointY="5" />
+        <AssociationConnector Association="CollegeModel.FK_Groups_Academic_plans" />
+        <AssociationConnector Association="CollegeModel.FK_Plan_information_Academic_plans" />
+        <AssociationConnector Association="CollegeModel.FK_Estimations_Subjects" />
+        <AssociationConnector Association="CollegeModel.FK_Estimations_Users" />
+        <AssociationConnector Association="CollegeModel.FK_Users_Groups" />
+        <AssociationConnector Association="CollegeModel.FK_Login_log_Users" />
+        <AssociationConnector Association="CollegeModel.FK_Logins_and_passwords_Users" />
+        <AssociationConnector Association="CollegeModel.FK_Plan_information_Subjects" />
+        <AssociationConnector Association="CollegeModel.FK_Subjects_Users1" />
+        <AssociationConnector Association="CollegeModel.FK_Users_User_types" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

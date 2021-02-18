@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="PP_12._2020.Views.Main_Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PP_12._2020.ViewsModels"
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:PP_12._2020.ViewsModels"
+             xmlns:v="clr-namespace:PP_12._2020.Views"
+             d:DataContext="{d:DesignInstance vm:Main_Control_MV}"
+             
+             >
+    <StackPanel>
+
+        <TabControl>
+            <TabItem Visibility="{Binding}"  Header="Пользователи">
+                <v:Users_Control DataContext="{Binding users_Control_VM}"/>
+            </TabItem>
+            <TabItem Visibility="{Binding}" Header="История входов">
+                <v:Control_Login_Log DataContext="{Binding MV_Login_Log}"/>
+            </TabItem>
+            <TabItem Visibility="{Binding}"  Header="Оценки">
+                <v:Control_Estimates DataContext="{Binding mV_Estimates}"/>
+            </TabItem>
+            <TabItem Visibility="{Binding}"  Header="Учебные планы">
+                <v:Control_Academic_plans DataContext="{Binding vM_Academic_Plans}"/>
+            </TabItem>
+            <TabItem Visibility="{Binding}" Header="Группы">
+                <v:Control_Groups DataContext="{Binding VM_Groups}"/>
+            </TabItem>
+        </TabControl>
+    </StackPanel>
+</UserControl>

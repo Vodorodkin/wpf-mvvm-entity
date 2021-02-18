@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="PP_12._2020.Views.Captcha_View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PP_12._2020.Views"
+             xmlns:vm="clr-namespace:PP_12._2020.ViewsModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:Captcha_VM}"
+             Visibility="{Binding visibility_Captcha}">
+    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Visibility="{Binding visibility_Captcha}">
+        <Canvas Visibility="{Binding visibility_Captcha}"  Margin="5"  Height="{Binding height}" Width="{Binding width}" x:Name="Container" HorizontalAlignment="Center" Background="AliceBlue"   >
+            <Label Visibility="{Binding visibility_Captcha}" Canvas.Left="{Binding Canvas_Left}" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding strCapcha}"/>
+            <Line Visibility="{Binding visibility_Captcha}" X1="{Binding l1x1}" X2="{Binding l1x2}" Y1="{Binding l1y1}" Y2="{Binding l1y2}" Stroke="Black"/>
+            <Line Visibility="{Binding visibility_Captcha}" X1="{Binding l2x1}" X2="{Binding l3x2}" Y1="{Binding l1y1}" Y2="{Binding l1y2}" Stroke="Black"/>
+            <Line Visibility="{Binding visibility_Captcha}" X1="{Binding l3x1}" X2="{Binding l1x2}" Y1="{Binding l1y1}" Y2="{Binding l1y2}" Stroke="Black"/>
+            <Line Visibility="{Binding visibility_Captcha}" X1="{Binding l1x1}" X2="{Binding l1x2}" Y1="{Binding l1y1}" Y2="{Binding l1y2}" Stroke="Black"/>
+        </Canvas>
+        <StackPanel Visibility="{Binding visibility_Captcha}" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBox Visibility="{Binding visibility_Captcha}" Height="{Binding height}" Width="{Binding width}" Text="{Binding Capcha}"/>
+            <Button Visibility="{Binding visibility_Captcha}"  Height="25" Width="25"  Command="{Binding ShowPas}"  Margin="5">
+                <Image Visibility="{Binding visibility_Captcha}" Source="/icons/refresh.png"></Image>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

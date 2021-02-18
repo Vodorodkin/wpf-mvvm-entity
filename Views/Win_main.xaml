@@ -1,0 +1,24 @@
+﻿<Window x:Class="PP_12._2020.Views.Win_main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PP_12._2020.Views"
+        mc:Ignorable="d"
+        Title="Main_Win" 
+        Closing="Window_Closing"
+        xmlns:vm="clr-namespace:PP_12._2020.ViewsModels"
+        xmlns:v="clr-namespace:PP_12._2020.Views"
+        d:DataContext="{d:DesignInstance vm:Main_Win_VM}"
+        WindowStartupLocation="CenterScreen" Height="568.908" Width="823.063">
+    <StackPanel>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5" >
+                <Image Source="{Binding user.Image}"  Height="25" Width="25" MouseLeftButtonDown="Image_MouseLeftButtonDown" ></Image>
+            </Border>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="{Binding user.FIO}"></Label>
+            <Label HorizontalAlignment="Right" Content="{Binding user.Group.Name}"></Label>
+        </StackPanel>
+        <v:Main_Control DataContext="{Binding main_Control_MV}"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="PP_12._2020.Views.Control_Login_Log"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PP_12._2020.Views"
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:PP_12._2020.ViewsModels"
+             d:DataContext="{d:DesignInstance vm:MV_Login_Log}">
+    <StackPanel HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label>Пользователь</Label>
+            <ComboBox ItemsSource="{Binding users}" SelectedItem="{Binding current_user}" DisplayMemberPath="FIO"/>
+            <Label>Начало</Label>
+            <DatePicker SelectedDate="{Binding start_date}"/>
+            <Label>Конец</Label>
+            <DatePicker SelectedDate="{Binding finish_date}"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Command="{Binding apply}" Margin="5">Применить</Button>
+        <Button Command="{Binding undo}" Margin="5">Сбросить</Button>
+        </StackPanel>
+        <DataGrid HorizontalAlignment="Center" Height="300" ItemsSource="{Binding login_Log}"  x:Name="dgOrders"  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"  Margin="5,5,5,5" >
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding User.FIO}" Header="ФИО" />
+            <DataGridTextColumn Binding="{Binding Login_date}" Header="Дата входа"  />
+                <DataGridTextColumn Binding="{Binding Logout_date}" Header="Дата выхода"  />
+            </DataGrid.Columns>
+        <DataGrid.InputBindings>
+            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ED_current_user}"/>
+        </DataGrid.InputBindings>
+    </DataGrid>
+    </StackPanel>
+</UserControl>

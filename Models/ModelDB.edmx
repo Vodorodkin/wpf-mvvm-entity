@@ -1,0 +1,790 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище CollegeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Academic_plans">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estimations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_subject" Type="int" Nullable="false" />
+          <Property Name="Estimation" Type="int" />
+          <Property Name="Semester" Type="int" Nullable="false" />
+          <Property Name="ID_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Start_Date" Type="datetime" Nullable="false" />
+          <Property Name="Ending_Date" Type="datetime" />
+          <Property Name="ID_Academic_plan" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login_date" Type="datetime" Nullable="false" />
+          <Property Name="Logout_date" Type="datetime" Nullable="false" />
+          <Property Name="ID_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logins_and_passwords">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ID_User" Type="int" />
+        </EntityType>
+        <EntityType Name="Plan_information">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Semester" Type="int" Nullable="false" />
+          <Property Name="ID_Subject" Type="int" Nullable="false" />
+          <Property Name="ID_AP" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ID_user" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User_types">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Last_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Middle_name" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="ID_User_type" Type="int" Nullable="false" />
+          <Property Name="ID_Group" Type="int" />
+          <Property Name="Image" Type="image" />
+        </EntityType>
+        <Association Name="FK_Estimations_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="Estimations" Type="Self.Estimations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Estimations">
+              <PropertyRef Name="ID_subject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estimations_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Estimations" Type="Self.Estimations" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Estimations">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Academic_plans">
+          <End Role="Academic_plans" Type="Self.Academic_plans" Multiplicity="1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Academic_plans">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="ID_Academic_plan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login log_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Login_log" Type="Self.Login_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Login_log">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logins_and_passwords_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Logins_and_passwords" Type="Self.Logins_and_passwords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Logins_and_passwords">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_information_Academic_plans">
+          <End Role="Academic_plans" Type="Self.Academic_plans" Multiplicity="1" />
+          <End Role="Plan_information" Type="Self.Plan_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Academic_plans">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Plan_information">
+              <PropertyRef Name="ID_AP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_information_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="Plan_information" Type="Self.Plan_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Plan_information">
+              <PropertyRef Name="ID_Subject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_User_types">
+          <End Role="User_types" Type="Self.User_types" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_types">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_User_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище CollegeModelContainer">
+          <EntitySet Name="Academic_plans" EntityType="Self.Academic_plans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estimations" EntityType="Self.Estimations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login_log" EntityType="Self.Login_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins_and_passwords" EntityType="Self.Logins_and_passwords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plan_information" EntityType="Self.Plan_information" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_types" EntityType="Self.User_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Estimations_Subjects" Association="Self.FK_Estimations_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Estimations" EntitySet="Estimations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estimations_Users" Association="Self.FK_Estimations_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Estimations" EntitySet="Estimations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Academic_plans" Association="Self.FK_Groups_Academic_plans">
+            <End Role="Academic_plans" EntitySet="Academic_plans" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login log_Users" Association="Self.FK_Login log_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Login_log" EntitySet="Login_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logins_and_passwords_Users" Association="Self.FK_Logins_and_passwords_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logins_and_passwords" EntitySet="Logins_and_passwords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_information_Academic_plans" Association="Self.FK_Plan_information_Academic_plans">
+            <End Role="Academic_plans" EntitySet="Academic_plans" />
+            <End Role="Plan_information" EntitySet="Plan_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_information_Subjects" Association="Self.FK_Plan_information_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Plan_information" EntitySet="Plan_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Users1" Association="Self.FK_Subjects_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Groups" Association="Self.FK_Users_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_User_types" Association="Self.FK_Users_User_types">
+            <End Role="User_types" EntitySet="User_types" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CollegeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CollegeEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CollegeModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CollegeModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Academic_plans" EntityType="CollegeModel.Academic_plans" />
+          <EntitySet Name="Estimations" EntityType="CollegeModel.Estimation" />
+          <EntitySet Name="Groups" EntityType="CollegeModel.Group" />
+          <EntitySet Name="Login_log" EntityType="CollegeModel.Login_log" />
+          <EntitySet Name="Logins_and_passwords" EntityType="CollegeModel.Logins_and_passwords" />
+          <EntitySet Name="Plan_information" EntityType="CollegeModel.Plan_information" />
+          <EntitySet Name="Subjects" EntityType="CollegeModel.Subject" />
+          <EntitySet Name="sysdiagrams" EntityType="CollegeModel.sysdiagram" />
+          <EntitySet Name="User_types" EntityType="CollegeModel.User_types" />
+          <EntitySet Name="Users" EntityType="CollegeModel.User" />
+          <AssociationSet Name="FK_Groups_Academic_plans" Association="CollegeModel.FK_Groups_Academic_plans">
+            <End Role="Academic_plans" EntitySet="Academic_plans" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_information_Academic_plans" Association="CollegeModel.FK_Plan_information_Academic_plans">
+            <End Role="Academic_plans" EntitySet="Academic_plans" />
+            <End Role="Plan_information" EntitySet="Plan_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estimations_Subjects" Association="CollegeModel.FK_Estimations_Subjects">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Estimation" EntitySet="Estimations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estimations_Users" Association="CollegeModel.FK_Estimations_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Estimation" EntitySet="Estimations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Groups" Association="CollegeModel.FK_Users_Groups">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login_log_Users" Association="CollegeModel.FK_Login_log_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Login_log" EntitySet="Login_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logins_and_passwords_Users" Association="CollegeModel.FK_Logins_and_passwords_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Logins_and_passwords" EntitySet="Logins_and_passwords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_information_Subjects" Association="CollegeModel.FK_Plan_information_Subjects">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Plan_information" EntitySet="Plan_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Users1" Association="CollegeModel.FK_Subjects_Users1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_User_types" Association="CollegeModel.FK_Users_User_types">
+            <End Role="User_types" EntitySet="User_types" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Academic_plans">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Groups" Relationship="CollegeModel.FK_Groups_Academic_plans" FromRole="Academic_plans" ToRole="Group" />
+          <NavigationProperty Name="Plan_information" Relationship="CollegeModel.FK_Plan_information_Academic_plans" FromRole="Academic_plans" ToRole="Plan_information" />
+        </EntityType>
+        <EntityType Name="Estimation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_subject" Type="Int32" Nullable="false" />
+          <Property Name="Estimation1" Type="Int32" />
+          <Property Name="Semester" Type="Int32" Nullable="false" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Subject" Relationship="CollegeModel.FK_Estimations_Subjects" FromRole="Estimation" ToRole="Subject" />
+          <NavigationProperty Name="User" Relationship="CollegeModel.FK_Estimations_Users" FromRole="Estimation" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ending_Date" Type="DateTime" Precision="3" />
+          <Property Name="ID_Academic_plan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Academic_plans" Relationship="CollegeModel.FK_Groups_Academic_plans" FromRole="Group" ToRole="Academic_plans" />
+          <NavigationProperty Name="Users" Relationship="CollegeModel.FK_Users_Groups" FromRole="Group" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Login_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Logout_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CollegeModel.FK_Login_log_Users" FromRole="Login_log" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Logins_and_passwords">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_User" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="CollegeModel.FK_Logins_and_passwords_Users" FromRole="Logins_and_passwords" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Plan_information">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Semester" Type="Int32" Nullable="false" />
+          <Property Name="ID_Subject" Type="Int32" Nullable="false" />
+          <Property Name="ID_AP" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Academic_plans" Relationship="CollegeModel.FK_Plan_information_Academic_plans" FromRole="Plan_information" ToRole="Academic_plans" />
+          <NavigationProperty Name="Subject" Relationship="CollegeModel.FK_Plan_information_Subjects" FromRole="Plan_information" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_user" Type="Int32" />
+          <NavigationProperty Name="Estimations" Relationship="CollegeModel.FK_Estimations_Subjects" FromRole="Subject" ToRole="Estimation" />
+          <NavigationProperty Name="Plan_information" Relationship="CollegeModel.FK_Plan_information_Subjects" FromRole="Subject" ToRole="Plan_information" />
+          <NavigationProperty Name="User" Relationship="CollegeModel.FK_Subjects_Users1" FromRole="Subject" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User_types">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="CollegeModel.FK_Users_User_types" FromRole="User_types" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Last_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Middle_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_User_type" Type="Int32" Nullable="false" />
+          <Property Name="ID_Group" Type="Int32" />
+          <NavigationProperty Name="Estimation" Relationship="CollegeModel.FK_Estimations_Users" FromRole="User" ToRole="Estimation" />
+          <NavigationProperty Name="Group" Relationship="CollegeModel.FK_Users_Groups" FromRole="User" ToRole="Group" />
+          <NavigationProperty Name="Login_log" Relationship="CollegeModel.FK_Login_log_Users" FromRole="User" ToRole="Login_log" />
+          <NavigationProperty Name="Logins_and_passwords" Relationship="CollegeModel.FK_Logins_and_passwords_Users" FromRole="User" ToRole="Logins_and_passwords" />
+          <NavigationProperty Name="Subjects" Relationship="CollegeModel.FK_Subjects_Users1" FromRole="User" ToRole="Subject" />
+          <NavigationProperty Name="User_types" Relationship="CollegeModel.FK_Users_User_types" FromRole="User" ToRole="User_types" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Groups_Academic_plans">
+          <End Type="CollegeModel.Academic_plans" Role="Academic_plans" Multiplicity="1" />
+          <End Type="CollegeModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Academic_plans">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="ID_Academic_plan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_information_Academic_plans">
+          <End Type="CollegeModel.Academic_plans" Role="Academic_plans" Multiplicity="1" />
+          <End Type="CollegeModel.Plan_information" Role="Plan_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Academic_plans">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Plan_information">
+              <PropertyRef Name="ID_AP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estimations_Subjects">
+          <End Type="CollegeModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="CollegeModel.Estimation" Role="Estimation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Estimation">
+              <PropertyRef Name="ID_subject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estimations_Users">
+          <End Type="CollegeModel.User" Role="User" Multiplicity="1" />
+          <End Type="CollegeModel.Estimation" Role="Estimation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Estimation">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Groups">
+          <End Type="CollegeModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="CollegeModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login_log_Users">
+          <End Type="CollegeModel.User" Role="User" Multiplicity="1" />
+          <End Type="CollegeModel.Login_log" Role="Login_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Login_log">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logins_and_passwords_Users">
+          <End Type="CollegeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="CollegeModel.Logins_and_passwords" Role="Logins_and_passwords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Logins_and_passwords">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_information_Subjects">
+          <End Type="CollegeModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="CollegeModel.Plan_information" Role="Plan_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Plan_information">
+              <PropertyRef Name="ID_Subject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Users1">
+          <End Type="CollegeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="CollegeModel.Subject" Role="Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_User_types">
+          <End Type="CollegeModel.User_types" Role="User_types" Multiplicity="1" />
+          <End Type="CollegeModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_types">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_User_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CollegeModelContainer" CdmEntityContainer="CollegeEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище CollegeModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище CollegeModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище CollegeModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище CollegeModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище CollegeModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище CollegeModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище CollegeModel.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Academic_plans">
+            <EntityTypeMapping TypeName="CollegeModel.Academic_plans">
+              <MappingFragment StoreEntitySet="Academic_plans">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estimations">
+            <EntityTypeMapping TypeName="CollegeModel.Estimation">
+              <MappingFragment StoreEntitySet="Estimations">
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="Estimation1" ColumnName="Estimation" />
+                <ScalarProperty Name="ID_subject" ColumnName="ID_subject" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="CollegeModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="ID_Academic_plan" ColumnName="ID_Academic_plan" />
+                <ScalarProperty Name="Ending_Date" ColumnName="Ending_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login_log">
+            <EntityTypeMapping TypeName="CollegeModel.Login_log">
+              <MappingFragment StoreEntitySet="Login_log">
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="Logout_date" ColumnName="Logout_date" />
+                <ScalarProperty Name="Login_date" ColumnName="Login_date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins_and_passwords">
+            <EntityTypeMapping TypeName="CollegeModel.Logins_and_passwords">
+              <MappingFragment StoreEntitySet="Logins_and_passwords">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plan_information">
+            <EntityTypeMapping TypeName="CollegeModel.Plan_information">
+              <MappingFragment StoreEntitySet="Plan_information">
+                <ScalarProperty Name="ID_AP" ColumnName="ID_AP" />
+                <ScalarProperty Name="ID_Subject" ColumnName="ID_Subject" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="CollegeModel.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CollegeModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_types">
+            <EntityTypeMapping TypeName="CollegeModel.User_types">
+              <MappingFragment StoreEntitySet="User_types">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CollegeModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
+                <ScalarProperty Name="ID_User_type" ColumnName="ID_User_type" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Middle_name" ColumnName="Middle_name" />
+                <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+                <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

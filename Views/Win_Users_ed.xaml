@@ -1,0 +1,67 @@
+﻿<Window x:Class="PP_12._2020.Views.Win_Users_ed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PP_12._2020.Views"
+        mc:Ignorable="d"
+        Title="{Binding}"
+        xmlns:v="clr-namespace:PP_12._2020.Views"
+        xmlns:vm="clr-namespace:PP_12._2020.ViewsModels"
+        d:DataContext="{d:DesignInstance vm:Users_ed_Vm}"
+        Loaded="Window_Loaded" Height="417.137" Width="440.397"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel HorizontalAlignment="Center">
+        <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Фамилия</Label>
+            <TextBox  Width="125"  Text="{Binding current_user.Last_name}"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Имя</Label>
+            <TextBox Width="125" Text="{Binding current_user.First_name}"></TextBox>
+        </StackPanel>
+        <StackPanel  Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Отчество</Label>
+            <TextBox  Width="125" Text="{Binding current_user.Middle_name}"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Телефон</Label>
+            <TextBox Width="125" Text="{Binding current_user.Phone}"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Тип</Label>
+            <ComboBox Width="125"  SelectedItem="{Binding current_user.User_types}" ItemsSource="{Binding user_Types}" DisplayMemberPath="Name"  VerticalContentAlignment="Center"></ComboBox>
+        </StackPanel>
+        <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Логин</Label>
+            <TextBox Width="125" Text="{Binding login}"  VerticalContentAlignment="Center"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Пароль</Label>
+            <PasswordBox Width="125" x:Name="passwd" PasswordChanged="passwd_PasswordChanged"  VerticalContentAlignment="Center"></PasswordBox>
+        </StackPanel>
+        <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+            <Label Width="75">Повтор пар.</Label>
+            <PasswordBox Width="125" x:Name="rep_passswd" PasswordChanged="passwd_PasswordChanged"  VerticalContentAlignment="Center"></PasswordBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Button Visibility="{Binding visibility_But_Del}" Command="{Binding del_User}" x:Name="bDelOrd" Margin="5,5,5,5"  Grid.Column="2">
+                <StackPanel Orientation="Horizontal">
+
+                    <Image Width="16" Height="16" Margin="4" Source="/icons/bin.png"/>
+                </StackPanel>
+            </Button>
+            <Button Visibility="{Binding visibility_But_Save}" Command="{Binding save_User}" x:Name="bSave" Margin="5,5,5,5"   Grid.Column="0"   >
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16" Height="16" Margin="4" Source="/icons/save.png"/>
+                </StackPanel>
+            </Button>
+            <Button Visibility="{Binding visibility_But_Add}" Command="{Binding add_User}" Margin="5,5,5,5"   Grid.Column="0"   >
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16" Height="16" Margin="4" Source="/icons/add.ico"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="PP_12._2020.Views.Control_Academic_plans"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PP_12._2020.Views"
+             xmlns:vm="clr-namespace:PP_12._2020.ViewsModels"
+             xmlns:v="clr-namespace:PP_12._2020.Views"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:VM_Academic_plans}">
+    <StackPanel HorizontalAlignment="Center">
+        <DataGrid Height="300" SelectedIndex="0" SelectedItem="{Binding current_academic_Plan}" ItemsSource="{Binding academic_Plans}"  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"  HorizontalAlignment="Center" Margin="5,5,5,5" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Наименование" />
+                <DataGridTextColumn Binding="{Binding Duration}" Header="Длительность"/>
+            </DataGrid.Columns>
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ED_academic_Plan}"/>
+            </DataGrid.InputBindings>
+        </DataGrid>
+        <Button Width="50" Command="{Binding add_academic_Plan}" x:Name="bDelOrd" Margin="5,5,5,5"  Grid.Column="2">
+            <Image Width="16" Height="16" Margin="4" Source="/icons/add.png"/>
+        </Button>
+    </StackPanel>
+</UserControl>
